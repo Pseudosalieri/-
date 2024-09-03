@@ -1,0 +1,72 @@
+---
+title: "知到(智慧树)共享课学习自动化的实现"
+output:
+  prettydoc::html_pretty:
+    # theme: cayman # 1
+    # theme: tactile #2
+    # theme: architect #3
+    # theme: leonids #4
+    # theme: hpstr #5
+    theme: cerulean
+    highlight: github
+    # highlight: vignette
+---
+
+# 
+
+## 需求实现的关键点
+
+刷课过程中需要克服的关键为弹窗的出现，如图所示。说起来也简单，如果能实现模拟人类鼠标的点击操作，问题也就迎刃而解了。![](images/clipboard-2131103548.png)
+
+## 方案特点
+
+-   **目前仅能实现课程视频的自动化播放以刷取学习进度，无法实现课程测试的自动化**
+
+-   依赖于PC端
+
+-   可实现多开，同时刷取多个课程。
+
+-   安全，稳定，方便，快捷
+
+::: {style="background-color: #FFFF00"}
+特别注意！长时间挂课系统有概率要求进行安全验证，方式为滑块验证，此处目前需要人工操作。
+:::
+
+## 所需工具
+
+-   Bluestacks 5 安卓模拟器，包体大小为2.49 GB，下载地址：<https://ak-build.bluestacks.com/public/app-player/windows/nxt/5.21.511.1001/9053b39accd6f762b3f619b4f6c9f31a/FullInstaller/x64/BlueStacksFullInstaller_5.21.511.1001_amd64_native.exe>
+
+-   KeymouseGo, 一种开源的类似于按键精灵的连点器软件，原软件原载于Github(<https://github.com/taojy123/KeymouseGo>),下载地址：<https://wwls.lanzoue.com/ittAx291ukfi>\
+    密码:1234
+
+-   知到APP的安装包，下载地址：<https://azshareappdk.3322.cc/appfile/com.able.wisdomtree.apk?time=1725342253&key=a5349b3ca75871260beeda8760c14e90>
+
+## 使用方法
+
+### 刷课单开
+
+1.  在电脑上安装Bluestacks 5 , 因包体较大，推荐安装在C盘以外的磁盘。
+
+2.  运行Bluestacks 5, 待加载完毕后，程序界面如下，点击图中标红的位置，安装之前下载好的知到apk文件，稍等片刻，程序加载完之后，“知到"app就会出现在我们的主界面上了。![](images/clipboard-2088493751.png)
+
+3.  点击打开“知到”app，输入账号密码，登录成功后，点击“学习”。 ![](images/clipboard-1486991683.png)
+
+4.  选中任一课程，开始学习，开始播放视频，进入全屏模式，将倍速调整至最高1.5x。![](images/clipboard-1294601317.png)
+
+5.  新建一个文件夹，命名为“连点器”，将下载好的KeymouseGo拖入文件夹中，双击打开，之后的界面如下，程序窗口右半侧为快捷键设置，可进行更改，接下来的操作将使用默认设置。![](images/clipboard-2217475300.png)
+
+6.  **接下来才是关键步骤，切记整个过程中不要移动模拟器窗口的位置。**将”鼠标精度”调整为`1`，将模拟器窗口调整至适当的大小（以占1/4全屏为宜），按下`F10` 开始录制动作，用鼠标进行一次答题的操作，点选弹窗中的任意选项，右上角关闭弹窗，此刻按下`F9`停止录制即可，鼠标动作录制完成。![](images/clipboard-2620575720.png)
+
+7.  将KeymouseGo的执行次数调整为`0` ，即可无限次执行动作。
+
+8.  单节课程的自动化刷课自此成功实现。
+
+### 刷课多开
+
+1.  **如果有刷课多开的需求，可通过Bluestacks 5 模拟器的“多开管理器”实现，但是执行多开操作之前需要关闭当前运行的模拟器引擎，且多开数量过多对电脑的负担较大。**点选“复制多开引擎"之后，将效能模式设置为"低内存消耗"，设置多开数量后，点击”新增“即可。
+
+![](images/clipboard-220775626.png)
+
+![](images/clipboard-2971905096.png)
+
+2.  利用KeymouseGo重新录制一次鼠标动作，与单开时的录制类似，使用鼠标先后操作每个引擎窗口，之后完成录制即可。![](images/clipboard-2756940483.png)
